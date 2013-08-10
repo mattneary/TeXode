@@ -1,7 +1,13 @@
 def literal_spaces(line)
   if line.match(/^\s/)
 	_, spaces, content = line.match(/^(\s+)([^\n]+)/)[0..2]
-	spaces + content.gsub(/\s+/, ' \space ')
+	if content.match(/#\{[^}]+\}/)
+	  spaces + (content.gsub(/#\{[^}]+\}/) do |match|
+	    match.gsub(/\s/, '_')[2..-2]
+	  end).gsub(/\s+/, ' \space ').gsub('_', ' ')
+	else
+	  spaces + content.gsub(/\s+/, ' \space ')
+	end
   else
     line.gsub(/\s+/, ' \space ')
   end
