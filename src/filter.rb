@@ -61,8 +61,12 @@ end
 code = false
 lineno = 0
 STDIN.read.split("\n").each do |line|
-  config = JSON.parse File.read('config.json')
-  keywords = config["*"]
+  if File.exist?('config.json')
+    config = JSON.parse File.read('config.json')
+  else
+    config = JSON.parse File.read('_config.json')
+  end
+  keywords = config["*"] or []
   if line.match(/^```/) and (not code)
     if line.match(/^```\S+/)
       keywords = keywords.concat((config[line.match(/^```(\S+)/)[1]] or []))
