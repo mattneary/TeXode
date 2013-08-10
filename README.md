@@ -33,11 +33,27 @@ Usage
 -----
 There are three modes of the TeXode command-line utility.
 
+###Build
+The build command is fulfills the most likely primary use-case. Using the flag `-b file.md file2.md ... build/folder/` will render all provided files to a build directory.
+
+```sh
+$ texode -b test.md test2.md ../sample
+Rendering the contents of `test.md` to the folder `../sample/`.
+Rendering the contents of `test2.md` to the folder `../sample/`.
+```
+
+This works as well for wildcards. Hence the following example could fulfill the needs of many projects.
+
+```sh
+$ texode -b *.md ../sample
+```
+
 ###Update
 To update a Markdown file with LaTeX rendered code, use the `-u input.md` flag.
 
 ```sh
 $ texode -u code.md
+Rendering the contents of `code.md`.
 ```
 
 The *update* command now supports wildcards, the following is an example of this.
@@ -53,7 +69,10 @@ To output the rendering of one file to another, use the `-o input.md output.md` 
 
 ```sh
 $ texode -o code.md tex.md
+Rendering contents of `code.md` to the file `tex.md`.
 ```
+
+Note that the build command can often fulfill this need; however, build assumes that you would like to maintain the file name and only adjust the folder location when outputting.
 
 ###Interactive
 To run TeXode in interactive mode, pass the flag `-i`.
@@ -62,7 +81,7 @@ To run TeXode in interactive mode, pass the flag `-i`.
 $ texode -i
 ```
 
-Will bear a __vi__ input pane, and then output the result to the command line.
+Will bear a __vi__ input pane, and then output the result to the command line. This could be useful to minimize overhead in a one-time compilation.
 
 Why LaTeX?
 ----------
@@ -79,4 +98,3 @@ Why LaTeX?
 Roadmap
 -------
 - Install script independent of running directory.
-- *Build* command for Wildcard output to a directory.
