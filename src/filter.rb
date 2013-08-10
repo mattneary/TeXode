@@ -1,13 +1,34 @@
 require 'rubygems'
 require 'json'
 
+DOCUMENT_MODE = ARGV[0]=="document"
+
+if DOCUMENT_MODE
+  PRELUDE = <<-eos
+\\documentclass[11pt]{article}
+\\usepackage{amsmath}
+\\usepackage{amssymb}
+
+% {{{ LaTeX document
+\\begin{document}
+  eos
+  LITERAL_SPACE = '\;'
+  BLOCK_START = '\begin{align*}'
+  BLOCK_END = '\end{align*}'
+else
+  PRELUDE = ''
+  LITERAL_SPACE = '\space'
+  BLOCK_START = "<div>\n"+'\begin{align*}'
+  BLOCK_END = '\end{align*}'+"\n</div>"
+end
+
 def nonliteral_spaces(segment)
   if segment.match(/#\{[^}]+\}/)
     (segment.gsub(/#\{[^}]+\}/) do |match|
       match.gsub(/\s/, '_')[2..-2]
-    end).gsub(/\s+/, ' \space ').gsub('_', ' ')
+    end).gsub(/\s+/, ' '+LITERAL_SPACE+' ').gsub('_', ' ')
   else
-    segment.gsub(/\s+/, ' \space ')
+    segment.gsub(/\s+/, ' '+LITERAL_SPACE+' ')
   end
 end
 
@@ -34,9 +55,9 @@ def indentation(line)
     line.gsub(/^\s+/, handle_tabs(line.match(/^\s+/)[0].split('')).each_slice(4).to_a.map { |spaces|
       case spaces.length
       when 4 then '\qquad '
-      when 3 then '\quad \space '
+      when 3 then '\quad '+LITERAL_SPACE+' '
       when 2 then '\quad '
-      else '\space '
+      else LITERAL_SPACE+' '
       end
     }.join(''))
   else
@@ -58,15 +79,42 @@ def literal_keywords(line, keywords)
   }).concat([[/[a-zA-Z0-9><]+-\S+/, '\text{\0}'], [/#[^\s]+/, '\text{\0}']])
 end
 
+def handle_headers(line, author)
+  case line
+  when /^###/ then '\subsection{'+line[3..-1]+'}'
+  when /^##/  then '\subsection{'+line[2..-1]+'}'
+  when /^#/ 
+    title = line[1..-1]
+    moyr = Time.new.strftime "%B %Y"
+    titlepage = <<-eos
+% {{{ Title page
+\\begin{titlepage}
+\\title{#{title}}
+\\author{#{author["name"]}}
+\\date{#{moyr}}
+\\maketitle
+\\thispagestyle{empty}
+\\end{titlepage}
+% }}}
+    eos
+    titlepage
+  else line
+  end
+end
+
 code = false
 lineno = 0
+if PRELUDE then puts PRELUDE end
+
+if File.exist?('config.json')
+  config = JSON.parse File.read(File.dirname(__FILE__)+'/config.json')
+else
+  config = JSON.parse File.read(File.dirname(__FILE__)+'/_config.json')
+end
+keywords = config["*"] ? config["*"] : []
+author = config["author"]
+
 STDIN.read.split("\n").each do |line|
-  if File.exist?('config.json')
-    config = JSON.parse File.read(ARGV[0]+'/config.json')
-  else
-    config = JSON.parse File.read(ARGV[0]+'/_config.json')
-  end
-  keywords = config["*"] ? config["*"] : []
   if line.match(/^```/) and (not code)
     if line.match(/^```\S+/)
       langkeys = config[line.match(/^```(\S+)/)[1]]
@@ -74,16 +122,18 @@ STDIN.read.split("\n").each do |line|
     end
     code = true
     lineno = 0
-    puts '<div>'
-    puts '\begin{align*}'
+    puts BLOCK_START
   elsif line.match(/^```/) and code
     code = false
-    puts '\end{align*}'
-    puts '</div>'
+    puts BLOCK_END
   elsif code
     puts (if lineno == 0 then '& ' else '\\\\& ' end) + literal_keywords(indentation(literal_spaces(line)), keywords)
     lineno += 1
   else
-    puts line
+    if DOCUMENT_MODE
+      puts handle_headers(line, author)
+    else
+      puts line
+    end
   end
 end

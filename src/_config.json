@@ -1,4 +1,9 @@
 {
-  "scheme": ["lambda", "define", "defmacro"],
-  "javascript": ["var", "for", "while", "switch", "if", "else", "function"]
+  "author": {
+    "name": "Matt Neary"
+  },
+  "languages": {
+    "scheme": ["lambda", "define", "defmacro"],
+    "javascript": ["var", "for", "while", "switch", "if", "else", "function"]
+  }
 }

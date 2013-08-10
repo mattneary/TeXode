@@ -19,7 +19,7 @@ elif [ $1 == "-i" ]
 then
   :>$TEXODE_WAREHOUSE_DIR/input
   vi $TEXODE_WAREHOUSE_DIR/input
-  cat $TEXODE_WAREHOUSE_DIR/input | ruby $TEXODE_WAREHOUSE_DIR/filter.rb $TEXODE_WAREHOUSE_DIR
+  cat $TEXODE_WAREHOUSE_DIR/input | ruby $TEXODE_WAREHOUSE_DIR/filter.rb
 elif [ $1 == "-u" ]  
 then
   index=0
@@ -28,7 +28,7 @@ then
     if [ $index -gt 0 ]
     then
       echo "Rendering the contents of \`$arg\`."
-      ruby $TEXODE_WAREHOUSE_DIR/filter.rb $TEXODE_WAREHOUSE_DIR < $arg > $TEXODE_WAREHOUSE_DIR/tmp
+      ruby $TEXODE_WAREHOUSE_DIR/filter.rb < $arg > $TEXODE_WAREHOUSE_DIR/tmp
       cat $TEXODE_WAREHOUSE_DIR/tmp > $arg      
     fi
     ((index++))
@@ -42,15 +42,29 @@ then
     if [ $index -gt 0 ] && [ $arg != $build_dir ]
     then
       echo "Rendering the contents of \`$arg\` to the folder \`$build_dir\`."
-      ruby $TEXODE_WAREHOUSE_DIR/filter.rb $TEXODE_WAREHOUSE_DIR < $arg > $TEXODE_WAREHOUSE_DIR/tmp
+      ruby $TEXODE_WAREHOUSE_DIR/filter.rb < $arg > $TEXODE_WAREHOUSE_DIR/tmp
       cat $TEXODE_WAREHOUSE_DIR/tmp > $build_dir/$(basename $arg)
     fi
     ((index++))
-  done    
+  done
+elif [ $1 == "--document" ]  
+then
+  for build_dir; do true; done
+  index=0
+  for arg
+  do
+    if [ $index -gt 0 ] && [ $arg != $build_dir ]
+    then
+      echo "Rendering the contents of \`$arg\` as a LaTeX doc to the folder \`$build_dir\`."
+      ruby $TEXODE_WAREHOUSE_DIR/filter.rb document < $arg > $TEXODE_WAREHOUSE_DIR/tmp
+      cat $TEXODE_WAREHOUSE_DIR/tmp > $build_dir/$(basename $arg)
+    fi
+    ((index++))
+  done   
 elif [ $1 == "-o" ]
 then
   echo "Rendering contents of \`$2\` to the file \`$3\`."
-  ruby $TEXODE_WAREHOUSE_DIR/filter.rb $TEXODE_WAREHOUSE_DIR < $2 > $TEXODE_WAREHOUSE_DIR/tmp
+  ruby $TEXODE_WAREHOUSE_DIR/filter.rb < $2 > $TEXODE_WAREHOUSE_DIR/tmp
   cat $TEXODE_WAREHOUSE_DIR/tmp > $3
 elif [ $1 == "-v" ]
 then
