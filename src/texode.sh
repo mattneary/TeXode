@@ -70,17 +70,11 @@ then
   rm ~/.texode/*.sh
   rm ~/.texode/*.rb
   rm ~/.texode/*.txt
+  cd ~/.texode
   git clone https://github.com/mattneary/TeXode.git
   echo ""
   cd TeXode/lib
-  ./install.sh `git log --pretty=format:'%h' -n 1`
-  cd ../..
-  rm -rf TeXode/
-  
-  echo "You are now running TeXode version `cat $TEXODE_WAREHOUSE_DIR/version.txt`."
-  echo ""
-  echo "Find this version on Github at "
-  echo "  https://github.com/mattneary/TeXode/commit/`cat $TEXODE_WAREHOUSE_DIR/version.txt`."
+  exec ./install.sh `git log --pretty=format:'%h' -n 1`    
 elif [ $1 == "--config" ]
 then
   if [ -f $TEXODE_WAREHOUSE_DIR/config.json ]

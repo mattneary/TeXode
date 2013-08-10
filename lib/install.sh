@@ -8,6 +8,11 @@ then
   true
 else  
   echo "$1" > $TEXODE_WAREHOUSE_DIR/version.txt
+  echo ""
+  echo "You are now running TeXode version $1."
+  echo ""
+  echo "Find this version on Github at "
+  echo "  https://github.com/mattneary/TeXode/commit/$1."
 fi  
 
 echo "TeXode has been installed."
