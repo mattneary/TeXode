@@ -56,7 +56,7 @@ elif [ $1 == "-v" ]
 then
   echo "Currently running TeXode version `cat $TEXODE_WAREHOUSE_DIR/version.txt`."
   echo ""
-  echo "Find this version on Github at 
+  echo "Find this version on Github at "
   echo "  https://github.com/mattneary/TeXode/commit/`cat $TEXODE_WAREHOUSE_DIR/version.txt`."
 elif [ $1 == "-u" ]
 then
