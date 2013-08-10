@@ -2,6 +2,18 @@ TeXode
 ======
 TeXode renders code blocks in a Markdown file as LaTeX, targeted specifically for use with MathJax. Rendering can be directed to update a Markdown file, output to another file, and even use command-line input and output.
 
+Installation
+------------
+To install TeXode, paste & run the following in your Terminal. This assumes that *git* is installed.
+
+```sh
+$ git clone https://github.com/mattneary/TeXode.git; \
+  echo ""; cd TeXode/lib; \
+  ./install.sh; cd ../..
+```
+
+This will clone the repo into your current directory, then run the install script.
+
 Usage
 -----
 There are three modes of the TeXode command-line utility.
@@ -43,5 +55,5 @@ Why LaTeX?
 
 Roadmap
 -------
-- An global installation script.
 - Syntax to trigger non-literal spaces.
+- Install script independent of running directory.
