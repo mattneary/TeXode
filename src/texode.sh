@@ -67,6 +67,9 @@ then
   echo "Getting fresh install of latest TeXode version..."
   echo ""
   
+  rm ~/.texode/*.sh
+  rm ~/.texode/*.rb
+  rm ~/.texode/*.txt
   git clone https://github.com/mattneary/TeXode.git
   echo ""
   cd TeXode/lib
@@ -84,7 +87,7 @@ then
   then
   vi $TEXODE_WAREHOUSE_DIR/config.json
   else
-  cp $TEXODE_WAREHOUSE_DIR/_config.json vi $TEXODE_WAREHOUSE_DIR/config.json
+  cp $TEXODE_WAREHOUSE_DIR/_config.json $TEXODE_WAREHOUSE_DIR/config.json
   vi $TEXODE_WAREHOUSE_DIR/config.json
   fi  
 else
