@@ -58,7 +58,7 @@ then
   echo ""
   echo "Find this version on Github at "
   echo "  https://github.com/mattneary/TeXode/commit/`cat $TEXODE_WAREHOUSE_DIR/version.txt`."
-elif [ $1 == "-u" ]
+elif [ $1 == "--update" ]
 then
   echo "Getting fresh install of latest TeXode version..."
   echo ""

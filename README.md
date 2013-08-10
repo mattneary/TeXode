@@ -15,20 +15,6 @@ $ git clone https://github.com/mattneary/TeXode.git; \
 
 This will clone the repo into your current directory, then run the install script, and remove any intermediary files created in the process.
 
-Special Syntax
---------------
-###Leading Spaces
-All leading spaces are treated as indentation which will be converted to LaTeX spacing. Of note is the fact that all blocks are wrapped in `\begin{align*}` blocks, thus `&` may be used for alignment as well.
-
-###Literal Spaces
-By default, all spaces within the contents of a line will be converted to LaTeX literal spaces, i.e., `\space`. However, a region for which you would not like literal spacing may be designated by `#{...}`. For example:
-
-```latex
-#{\lambda f \lambda x (f) x}
-```
-
-The above renders as a dense array of characters, without any spacing between them.
-
 Usage
 -----
 There are three modes of the TeXode command-line utility.
@@ -82,6 +68,28 @@ $ texode -i
 ```
 
 Will bear a __vi__ input pane, and then output the result to the command line. This could be useful to minimize overhead in a one-time compilation.
+
+Versioning
+----------
+###Current Version
+To get the current version of your installation of TeXode, run `texode -v`. Versions are labeled by their git commit hash, and can be found and referenced here on Github.
+
+###Updating
+To update TeXode, run `texode -u`.
+
+Special Syntax
+--------------
+###Leading Spaces
+All leading spaces are treated as indentation which will be converted to LaTeX spacing. Of note is the fact that all blocks are wrapped in `\begin{align*}` blocks, thus `&` may be used for alignment as well.
+
+###Literal Spaces
+By default, all spaces within the contents of a line will be converted to LaTeX literal spaces, i.e., `\space`. However, a region for which you would not like literal spacing may be designated by `#{...}`. For example:
+
+```latex
+#{\lambda f \lambda x (f) x}
+```
+
+The above renders as a dense array of characters, without any spacing between them.
 
 Why LaTeX?
 ----------
