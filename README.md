@@ -32,10 +32,12 @@ Will bear a __vi__ input pane, and then output the result to the command line.
 Why LaTeX?
 ----------
 1. LaTeX rendered code can have explicit aligning between lines.
+
 	```latex
 	(lambda (x) x) &\implies \lambda x x
 	(lambda (f x) (f x)) &\implies \lambda f \lambda x (f) x
 	```
+
 2. LaTeX rendered code can include an array of special symbols easily, e.g., `\implies` or `\lambda`.
 3. LaTeX looks far more traditional and formal than syntax highlighting.
 
