@@ -43,6 +43,22 @@ def literal_keywords(line)
   apply_replaces line, [[/lambda/, '\text{lambda}'], [/[a-zA-Z0-9><]+-\S+/, '\text{\0}'], [/#[^\s]+/, '\text{\0}']]
 end
 
-STDIN.read.split("\n").each do |line|   
-  puts '\\\\& ' + literal_keywords(indentation(literal_spaces(line)))
+code = false
+lineno = 0
+STDIN.read.split("\n").each do |line|
+  if line.match(/^```/) and (not code)
+    code = true
+    lineno = 0
+    puts '<div>'
+    puts '\begin{align*}'
+  elsif line.match(/^```/) and code
+    code = false
+    puts '\end{align*}'
+    puts '</div>'
+  elsif code
+    puts (if lineno == 0 then '& ' else '\\\\& ' end) + literal_keywords(indentation(literal_spaces(line)))
+    lineno += 1
+  else
+    puts line
+  end
 end
