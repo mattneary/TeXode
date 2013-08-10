@@ -97,4 +97,4 @@ Why LaTeX?
 
 Roadmap
 -------
-- Install script independent of running directory.
+- Config file for keyword provisioning.

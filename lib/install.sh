@@ -2,7 +2,7 @@ TEXODE_WAREHOUSE_DIR="${TEXODE_WAREHOUSE_DIR:-$HOME/.texode}"
 BUILD_DIR=$(dirname $0)
 
 cp -R $BUILD_DIR/../src $TEXODE_WAREHOUSE_DIR
-cp $BUILD_DIR/texode.sh /usr/local/bin/texode
+cp $BUILD_DIR/../src/texode.sh /usr/local/bin/texode
 
 echo "TeXode has been installed."
 echo ""
