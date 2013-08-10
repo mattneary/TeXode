@@ -9,10 +9,25 @@ To install TeXode, paste & run the following in your Terminal. This assumes that
 ```sh
 $ git clone https://github.com/mattneary/TeXode.git; \
   echo ""; cd TeXode/lib; \
-  ./install.sh; cd ../..
+  ./install.sh; cd ../..; \
+  rm -rf TeXode/
 ```
 
-This will clone the repo into your current directory, then run the install script.
+This will clone the repo into your current directory, then run the install script, and remove any intermediary files created in the process.
+
+Special Syntax
+--------------
+###Leading Spaces
+All leading spaces are treated as indentation which will be converted to LaTeX spacing. Of note is the fact that all blocks are wrapped in `\begin{align*}` blocks, thus `&` may be used for alignment as well.
+
+###Literal Spaces
+By default, all spaces within the contents of a line will be converted to LaTeX literal spaces, i.e., `\space`. However, a region for which you would not like literal spacing may be designated by `#{...}`. For example:
+
+```latex
+#{\lambda f \lambda x (f) x}
+```
+
+The above renders as a dense array of characters, without any spacing between them.
 
 Usage
 -----
