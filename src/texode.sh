@@ -76,7 +76,7 @@ then
   echo "  https://github.com/mattneary/TeXode/commit/`cat $TEXODE_WAREHOUSE_DIR/version.txt`."
 elif [ $1 == "--config" ]
 then
-  vi $TEXODE_WAREHOUSE_DIR/config.json
+  vi $TEXODE_WAREHOUSE_DIR/src/config.json
 else
   echo "Invalid arguments provided. Run \`texode\` for help."
 fi

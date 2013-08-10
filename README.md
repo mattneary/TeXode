@@ -95,11 +95,11 @@ The above renders as a dense array of characters, without any spacing between th
 
 Configuration
 -------------
-To configure keywords for all or only specific languages, perform the command `texode --config`. The configuration is a JSON file, and code languages are specified as on Github, like the following.
+To configure keywords for all or only specific languages, perform the command `texode --config`. The configuration is a JSON file, and code languages are specified within documents as on Github, like the following.
 
->```scheme
-(define a 2)
-```
+<div>```scheme<br>
+(define a 2)<br>
+```</div>
 
 Why LaTeX?
 ----------
