@@ -72,7 +72,7 @@ then
   
   echo "You are now running TeXode version `cat $TEXODE_WAREHOUSE_DIR/version.txt`."
   echo ""
-  echo "Find this version on Github at 
+  echo "Find this version on Github at "
   echo "  https://github.com/mattneary/TeXode/commit/`cat $TEXODE_WAREHOUSE_DIR/version.txt`."
 else
   echo "Invalid arguments provided. Run \`texode\` for help."
