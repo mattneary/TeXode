@@ -10,8 +10,8 @@ end
 
 def literal_spaces(line)
   if line.match(/^\s/)
-	_, spaces, content = line.match(/^(\s+)([^\n]+)/)[0..2]	
-	spaces + nonliteral_spaces(content)
+    _, spaces, content = line.match(/^(\s+)([^\n]+)/)[0..2]	
+    spaces + nonliteral_spaces(content)
   else
     nonliteral_spaces(line)
   end

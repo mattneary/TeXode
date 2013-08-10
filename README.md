@@ -106,3 +106,4 @@ Why LaTeX?
 Roadmap
 -------
 - Config file for keyword provisioning.
+- A command that builds both clean markup and LaTeX code to their respective directories.
