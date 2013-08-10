@@ -80,7 +80,11 @@ then
   else
   cp $TEXODE_WAREHOUSE_DIR/_config.json $TEXODE_WAREHOUSE_DIR/config.json
   vi $TEXODE_WAREHOUSE_DIR/config.json
-  fi  
+  fi 
+elif [ $1 == "--reset" ]
+then
+  rm $TEXODE_WAREHOUSE_DIR/config.json
+  echo "Your configuration file has been reset."   
 else
   echo "Invalid arguments provided. Run \`texode\` for help."
 fi
