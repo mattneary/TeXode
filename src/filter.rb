@@ -62,14 +62,15 @@ code = false
 lineno = 0
 STDIN.read.split("\n").each do |line|
   if File.exist?('config.json')
-    config = JSON.parse File.read('config.json')
+    config = JSON.parse File.read(ARGV[0]+'/config.json')
   else
-    config = JSON.parse File.read('_config.json')
+    config = JSON.parse File.read(ARGV[0]+'/_config.json')
   end
-  keywords = config["*"] or []
+  keywords = config["*"] ? config["*"] : []
   if line.match(/^```/) and (not code)
     if line.match(/^```\S+/)
-      keywords = keywords.concat((config[line.match(/^```(\S+)/)[1]] or []))
+      langkeys = config[line.match(/^```(\S+)/)[1]]
+      keywords = keywords.concat((langkeys ? langkeys : langkeys))
     end
     code = true
     lineno = 0
