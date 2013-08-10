@@ -69,8 +69,9 @@ then
   
   rm ~/.texode/*.sh
   rm ~/.texode/*.rb
-  rm ~/.texode/*.txt
+  rm ~/.texode/*.txt  
   cd ~/.texode
+  rm -rf ~/TeXode
   git clone https://github.com/mattneary/TeXode.git
   echo ""
   cd TeXode/lib
