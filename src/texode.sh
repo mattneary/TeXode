@@ -7,15 +7,14 @@ then
   echo ""
   echo "Get this Help Screen:"
   echo "    texode"
-  echo ""
   echo "Run in Interactive Mode:"
   echo "    texode -i"
-  echo ""
-  echo "Update a File with Rendered Code:"
-  echo "    texode -u input.md"
-  echo ""
+  echo "Update File(s) with Rendered Code:"
+  echo "    texode -u *.md"
   echo "Output Rendered Markdown to File:"
   echo "    texode -o input.md output.md"
+  echo "Build File(s) to a Directory:"
+  echo "    texode -b *.md build/"
 elif [ $1 == "-i" ]
 then
   :>$TEXODE_WAREHOUSE_DIR/input
@@ -30,7 +29,7 @@ then
     then
       echo "Rendering the contents of \`$arg\`."
       ruby $TEXODE_WAREHOUSE_DIR/filter.rb  < $arg > $TEXODE_WAREHOUSE_DIR/tmp
-      cat $TEXODE_WAREHOUSE_DIR/tmp > $arg
+      cat $TEXODE_WAREHOUSE_DIR/tmp > $arg      
     fi
     ((index++))
   done 
@@ -51,7 +50,11 @@ then
 elif [ $1 == "-o" ]
 then
   echo "Rendering contents of \`$2\` to the file \`$3\`."
-  ruby $TEXODE_WAREHOUSE_DIR/filter.rb < $2 > $3
+  ruby $TEXODE_WAREHOUSE_DIR/filter.rb  < $2 > $TEXODE_WAREHOUSE_DIR/tmp
+  cat $TEXODE_WAREHOUSE_DIR/tmp > $3
+elif [ $1 == "-v" ]
+then
+  cat $TEXODE_WAREHOUSE_DIR/version.txt
 else
   echo "Invalid arguments provided. Run \`texode\` for help."
 fi

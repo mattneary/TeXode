@@ -9,7 +9,7 @@ To install TeXode, paste & run the following in your Terminal. This assumes that
 ```sh
 $ git clone https://github.com/mattneary/TeXode.git; \
   echo ""; cd TeXode/lib; \
-  ./install.sh; cd ../..; \
+  ./install.sh `git log --pretty=format:'%h' -n 1`; cd ../..; \
   rm -rf TeXode/
 ```
 

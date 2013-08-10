@@ -3,6 +3,12 @@ BUILD_DIR=$(dirname $0)
 
 cp -R $BUILD_DIR/../src $TEXODE_WAREHOUSE_DIR
 cp $BUILD_DIR/../src/texode.sh /usr/local/bin/texode
+if [ -z $1 ]
+then
+  true
+else  
+  echo "$1" > $TEXODE_WAREHOUSE_DIR/version.txt
+fi  
 
 echo "TeXode has been installed."
 echo ""
