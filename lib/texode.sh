@@ -2,7 +2,20 @@ TEXODE_WAREHOUSE_DIR="${TEXODE_WAREHOUSE_DIR:-$HOME/.texode}"
 
 if [ -z $1 ]
 then
-  echo "help:"
+  echo "TeXode renders Markdown code blocks as LaTex."
+  echo "Find out more at http://github.com/mattneary/TeXode."
+  echo ""
+  echo "Get this Help Screen:"
+  echo "    texode"
+  echo ""
+  echo "Run in Interactive Mode:"
+  echo "    texode -i"
+  echo ""
+  echo "Update a File with Rendered Code:"
+  echo "    texode -u input.md"
+  echo ""
+  echo "Output Rendered Markdown to File:"
+  echo "    texode -o input.md output.md"
 elif [ $1 == "-i" ]
 then
   :>$TEXODE_WAREHOUSE_DIR/input
