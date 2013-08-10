@@ -1,15 +1,19 @@
+def nonliteral_spaces(segment)
+  if segment.match(/#\{[^}]+\}/)
+    (segment.gsub(/#\{[^}]+\}/) do |match|
+      match.gsub(/\s/, '_')[2..-2]
+    end).gsub(/\s+/, ' \space ').gsub('_', ' ')
+  else
+    segment.gsub(/\s+/, ' \space ')
+  end
+end
+
 def literal_spaces(line)
   if line.match(/^\s/)
-	_, spaces, content = line.match(/^(\s+)([^\n]+)/)[0..2]
-	if content.match(/#\{[^}]+\}/)
-	  spaces + (content.gsub(/#\{[^}]+\}/) do |match|
-	    match.gsub(/\s/, '_')[2..-2]
-	  end).gsub(/\s+/, ' \space ').gsub('_', ' ')
-	else
-	  spaces + content.gsub(/\s+/, ' \space ')
-	end
+	_, spaces, content = line.match(/^(\s+)([^\n]+)/)[0..2]	
+	spaces + nonliteral_spaces(content)
   else
-    line.gsub(/\s+/, ' \space ')
+    nonliteral_spaces(line)
   end
 end
 
