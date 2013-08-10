@@ -15,6 +15,8 @@ $ git clone https://github.com/mattneary/TeXode.git; \
 
 This will clone the repo into your current directory, then run the install script, and remove any intermediary files created in the process.
 
+Future updates can be performed from within TeXode by the `--update` flag, and your version number checked by the `-v` flag.
+
 Usage
 -----
 There are three modes of the TeXode command-line utility.
@@ -91,6 +93,14 @@ By default, all spaces within the contents of a line will be converted to LaTeX 
 
 The above renders as a dense array of characters, without any spacing between them.
 
+Configuration
+-------------
+To configure keywords for all or only specific languages, perform the command `texode --config`. The configuration is a JSON file, and code languages are specified as on Github, like the following.
+
+>```scheme
+(define a 2)
+```
+
 Why LaTeX?
 ----------
 1. LaTeX rendered code can have explicit aligning between lines.
@@ -102,8 +112,9 @@ Why LaTeX?
 
 2. LaTeX rendered code can include an array of special symbols easily, e.g., `\implies` or `\lambda`.
 3. LaTeX looks far more traditional and formal than syntax highlighting.
+4. There is no reason to limit code samples to the feature-set of a code editor or strict syntax of an interpreter. Code is meant as a means of communication to humans first, and communication with computer second.
 
 Roadmap
 -------
-- Config file for keyword provisioning.
+- Full-fledged LaTeX document output.
 - A command that builds both clean markup and LaTeX code to their respective directories.

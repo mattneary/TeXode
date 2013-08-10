@@ -74,6 +74,9 @@ then
   echo ""
   echo "Find this version on Github at "
   echo "  https://github.com/mattneary/TeXode/commit/`cat $TEXODE_WAREHOUSE_DIR/version.txt`."
+elif [ $1 == "--config" ]
+then
+  vi $TEXODE_WAREHOUSE_DIR/config.json
 else
   echo "Invalid arguments provided. Run \`texode\` for help."
 fi

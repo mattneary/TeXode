@@ -1,3 +1,6 @@
+require 'rubygems'
+require 'json'
+
 def nonliteral_spaces(segment)
   if segment.match(/#\{[^}]+\}/)
     (segment.gsub(/#\{[^}]+\}/) do |match|
@@ -49,14 +52,21 @@ def apply_replaces(base, replaces)
   end
 end
 
-def literal_keywords(line)
-  apply_replaces line, [[/lambda/, '\text{lambda}'], [/[a-zA-Z0-9><]+-\S+/, '\text{\0}'], [/#[^\s]+/, '\text{\0}']]
+def literal_keywords(line, keywords)  
+  apply_replaces line, (keywords.map { |keyword|
+    [keyword, '\text{'+keyword+'}']
+  }).concat([[/[a-zA-Z0-9><]+-\S+/, '\text{\0}'], [/#[^\s]+/, '\text{\0}']])
 end
 
 code = false
 lineno = 0
 STDIN.read.split("\n").each do |line|
+  config = JSON.parse File.read('config.json')
+  keywords = config["*"]
   if line.match(/^```/) and (not code)
+    if line.match(/^```\S+/)
+      keywords = keywords.concat((config[line.match(/^```(\S+)/)[1]] or []))
+    end
     code = true
     lineno = 0
     puts '<div>'
@@ -66,7 +76,7 @@ STDIN.read.split("\n").each do |line|
     puts '\end{align*}'
     puts '</div>'
   elsif code
-    puts (if lineno == 0 then '& ' else '\\\\& ' end) + literal_keywords(indentation(literal_spaces(line)))
+    puts (if lineno == 0 then '& ' else '\\\\& ' end) + literal_keywords(indentation(literal_spaces(line)), keywords)
     lineno += 1
   else
     puts line
