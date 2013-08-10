@@ -44,3 +44,4 @@ Why LaTeX?
 Roadmap
 -------
 - An global installation script.
+- Syntax to trigger non-literal spaces.
