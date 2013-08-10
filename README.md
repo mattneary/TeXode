@@ -37,21 +37,29 @@ There are three modes of the TeXode command-line utility.
 To update a Markdown file with LaTeX rendered code, use the `-u input.md` flag.
 
 ```sh
-$ ./texode.sh -u code.md
+$ texode -u code.md
+```
+
+The *update* command now supports wildcards, the following is an example of this.
+
+```sh
+$ texode -u *.md
+Rendering the contents of `test.md`.
+Rendering the contents of `test2.md`.
 ```
 
 ###Output
 To output the rendering of one file to another, use the `-o input.md output.md` flag.
 
 ```sh
-$ ./texode.sh -o code.md tex.md
+$ texode -o code.md tex.md
 ```
 
 ###Interactive
 To run TeXode in interactive mode, pass the flag `-i`.
 
 ```sh
-$ ./texode.sh -i
+$ texode -i
 ```
 
 Will bear a __vi__ input pane, and then output the result to the command line.
@@ -70,5 +78,5 @@ Why LaTeX?
 
 Roadmap
 -------
-- Syntax to trigger non-literal spaces.
 - Install script independent of running directory.
+- *Build* command for Wildcard output to a directory.

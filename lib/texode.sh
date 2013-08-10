@@ -23,12 +23,21 @@ then
   cat $TEXODE_WAREHOUSE_DIR/input | ruby $TEXODE_WAREHOUSE_DIR/filter.rb
 elif [ $1 == "-u" ]  
 then
-  echo "Rendering the contents of \`$2\`."
-  ruby $TEXODE_WAREHOUSE_DIR/filter.rb  < $2 > $2
+  index=0
+  for arg
+  do
+    if [ $index -gt 0 ]
+    then
+      echo "Rendering the contents of \`$arg\`."
+      ruby $TEXODE_WAREHOUSE_DIR/filter.rb  < $arg > $TEXODE_WAREHOUSE_DIR/tmp
+      cat $TEXODE_WAREHOUSE_DIR/tmp > $arg
+    fi
+    ((index++))
+  done  
 elif [ $1 == "-o" ]
 then
   echo "Rendering contents of \`$2\` to the file \`$3\`."
-  ruby $TEXODE_WAREHOUSE_DIR/filter.rb  < $2 > $3
+  ruby $TEXODE_WAREHOUSE_DIR/filter.rb < $2 > $3
 else
   echo "Invalid arguments provided. Run \`texode\` for help."
 fi
