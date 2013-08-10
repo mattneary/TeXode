@@ -54,7 +54,26 @@ then
   cat $TEXODE_WAREHOUSE_DIR/tmp > $3
 elif [ $1 == "-v" ]
 then
-  cat $TEXODE_WAREHOUSE_DIR/version.txt
+  echo "Currently running TeXode version `cat $TEXODE_WAREHOUSE_DIR/version.txt`."
+  echo ""
+  echo "Find this version on Github at 
+  echo "  https://github.com/mattneary/TeXode/commit/`cat $TEXODE_WAREHOUSE_DIR/version.txt`."
+elif [ $1 == "-u" ]
+then
+  echo "Getting fresh install of latest TeXode version..."
+  echo ""
+  
+  git clone https://github.com/mattneary/TeXode.git
+  echo ""
+  cd TeXode/lib
+  ./install.sh `git log --pretty=format:'%h' -n 1`
+  cd ../..
+  rm -rf TeXode/
+  
+  echo "You are now running TeXode version `cat $TEXODE_WAREHOUSE_DIR/version.txt`."
+  echo ""
+  echo "Find this version on Github at 
+  echo "  https://github.com/mattneary/TeXode/commit/`cat $TEXODE_WAREHOUSE_DIR/version.txt`."
 else
   echo "Invalid arguments provided. Run \`texode\` for help."
 fi
