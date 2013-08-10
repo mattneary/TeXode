@@ -1,3 +1,4 @@
 {
-  "*": ["lambda", "define"]
+  "scheme": ["lambda", "define", "defmacro"],
+  "javascript": ["var", "for", "while", "switch", "if", "else", "function"]
 }

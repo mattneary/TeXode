@@ -84,7 +84,7 @@ then
   then
   vi $TEXODE_WAREHOUSE_DIR/config.json
   else
-  cp vi $TEXODE_WAREHOUSE_DIR/_config.json vi $TEXODE_WAREHOUSE_DIR/config.json
+  cp $TEXODE_WAREHOUSE_DIR/_config.json vi $TEXODE_WAREHOUSE_DIR/config.json
   vi $TEXODE_WAREHOUSE_DIR/config.json
   fi  
 else
