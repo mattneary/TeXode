@@ -75,7 +75,7 @@ Versioning
 To get the current version of your installation of TeXode, run `texode -v`. Versions are labeled by their git commit hash, and can be found and referenced here on Github.
 
 ###Updating
-To update TeXode, run `texode -u`.
+To update TeXode, run `texode --update`.
 
 Special Syntax
 --------------
