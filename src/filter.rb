@@ -76,7 +76,7 @@ end
 def literal_keywords(line, keywords)  
   apply_replaces line, (keywords.map { |keyword|
     [keyword, '\text{'+keyword+'}']
-  }).concat([[/[a-zA-Z0-9><]+-\S+/, '\text{\0}'], [/#[^\s]+/, '\text{\0}']])
+  }).concat([[/\.\.\./, '\dots'], [/[a-zA-Z0-9><]+-\S+/, '\text{\0}'], [/#[^\s]+/, '\text{\0}']])
 end
 
 def handle_headers(line, author)
@@ -133,7 +133,7 @@ STDIN.read.split("\n").each do |line|
     if DOCUMENT_MODE
       puts handle_headers(line, author)
     else
-      puts line
+      puts line.gsub(/#(\S+)/, "\1")
     end
   end
 end

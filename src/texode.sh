@@ -63,7 +63,7 @@ then
     then
       echo "Rendering the contents of \`$arg\` as a LaTeX doc to the folder \`$build_dir\`."
       ruby $TEXODE_WAREHOUSE_DIR/filter.rb document < $arg > $TEXODE_WAREHOUSE_DIR/tmp
-      cat $TEXODE_WAREHOUSE_DIR/tmp > $build_dir/$(basename $arg)
+      cat $TEXODE_WAREHOUSE_DIR/tmp > $build_dir/$(basename $arg).tex
     fi
     ((index++))
   done   
