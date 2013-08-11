@@ -15,6 +15,12 @@ then
   echo "    texode -o input.md output.md"
   echo "Build File(s) to a Directory:"
   echo "    texode -b *.md build/"
+  echo "Build Full Documents to Directory:"
+  echo "    texode --document *.md build/"
+  echo "Get current version:"
+  echo "    texode -v"
+  echo "Update TeXode:"
+  echo "    texode --update"
 elif [ $1 == "-i" ]
 then
   :>$TEXODE_WAREHOUSE_DIR/input

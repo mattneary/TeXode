@@ -71,6 +71,15 @@ $ texode -i
 
 Will bear a __vi__ input pane, and then output the result to the command line. This could be useful to minimize overhead in a one-time compilation.
 
+###Document
+To run TeXode to generate full LaTeX documents, pass the `--document input.md input2.md ... build/folder/`.
+
+```sh
+$ texode --document *.md ../sample/
+Rendering the contents of `test.md` as a document to the folder `../sample/`.
+Rendering the contents of `test2.md` as a document to the folder `../sample/`.
+```
+
 Versioning
 ----------
 ###Current Version
