@@ -102,8 +102,21 @@ def handle_headers(line, author)
   end
 end
 
-code = false
-lineno = 0
+def handle_body(line, author)
+  if DOCUMENT_MODE
+    line = handle_headers(line, author).gsub(/#[a-zA-Z0-9]+/) do |match|
+      match[1..-1]
+    end
+    line
+  else
+    line
+  end
+end
+
+def handle_bullet(line, author)
+  '  \item '+handle_body(line[2..-1], author)
+end
+
 if PRELUDE then puts PRELUDE end
 
 if File.exist?('config.json')
@@ -112,8 +125,12 @@ else
   config = JSON.parse File.read(File.dirname(__FILE__)+'/_config.json')
 end
 keywords = config["*"] ? config["*"] : []
+_keywords = keywords
 author = config["author"]
 
+code = false
+list = false
+lineno = 0
 STDIN.read.split("\n").each do |line|
   if line.match(/^```/) and (not code)
     if line.match(/^```\S+/)
@@ -125,18 +142,25 @@ STDIN.read.split("\n").each do |line|
     puts BLOCK_START
   elsif line.match(/^```/) and code
     code = false
+    keywords = _keywords
     puts BLOCK_END
   elsif code
     puts (if lineno == 0 then '& ' else '\\\\& ' end) + literal_keywords(indentation(literal_spaces(line)), keywords)
     lineno += 1
+  elsif DOCUMENT_MODE and line.match(/^- /) and (not list)
+    puts '\begin{itemize}'+"\n"
+    list = true
+    puts handle_bullet(line, author)
+  elsif DOCUMENT_MODE and list and (not line.match(/^- /))
+    list = false
+    puts '\end{itemize}'+"\n"
+    puts handle_body(line, author)
+  elsif DOCUMENT_MODE and list
+    puts handle_bullet(line, author)
   else
-    if DOCUMENT_MODE
-      line = handle_headers(line, author).gsub(/#[a-zA-Z0-9]+/) do |match|
-        match[1..-1]
-      end
-      puts line
-    else
-      puts line
-    end
+    puts handle_body(line, author)
   end
+end
+if DOCUMENT_MODE
+  puts '\end{document}'
 end
