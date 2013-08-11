@@ -131,9 +131,9 @@ STDIN.read.split("\n").each do |line|
     lineno += 1
   else
     if DOCUMENT_MODE
-      puts handle_headers(line, author)
+      puts handle_headers(line, author).gsub(/#(\S+)/, "\1")
     else
-      puts line.gsub(/#(\S+)/, "\1")
+      puts line
     end
   end
 end
