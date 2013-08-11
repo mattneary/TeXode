@@ -1,6 +1,6 @@
 TeXode
 ======
-TeXode renders code blocks in a Markdown file as LaTeX, targeted specifically for use with MathJax. Rendering can be directed to update a Markdown file, output to another file, and even use command-line input and output.
+TeXode renders Markdown as LaTeX, either full documents or exclusively code-blocks, intended for use with MathJax. Rendering can be directed to update a Markdown file, output to another file, use command-line input and output, or build a series of documents to LaTeX.
 
 Installation
 ------------
@@ -19,7 +19,10 @@ Future updates can be performed from within TeXode by the `--update` flag, and y
 
 Usage
 -----
-There are three modes of the TeXode command-line utility.
+There are various modes of use of TeXode, including different ways of rendering either full documents or code-blocks alone.
+
+###Document Rendering
+To render Markdown document(s) as LaTeX, use the flag `--document file1.md file2.md ... build/folder`. Files will be outputted with a `.tex` extension appended in the build folder. From there, the LaTeX may be rendered as a pdf.
 
 ###Build
 The build command is fulfills the most likely primary use-case. Using the flag `-b file.md file2.md ... build/folder/` will render all provided files to a build directory.
@@ -88,23 +91,9 @@ To get the current version of your installation of TeXode, run `texode -v`. Vers
 ###Updating
 To update TeXode, run `texode --update`.
 
-Special Syntax
---------------
-###Leading Spaces
-All leading spaces are treated as indentation which will be converted to LaTeX spacing. Of note is the fact that all blocks are wrapped in `\begin{align*}` blocks, thus `&` may be used for alignment as well.
-
-###Literal Spaces
-By default, all spaces within the contents of a line will be converted to LaTeX literal spaces, i.e., `\space`. However, a region for which you would not like literal spacing may be designated by `#{...}`. For example:
-
-```latex
-#{\lambda f \lambda x (f) x}
-```
-
-The above renders as a dense array of characters, without any spacing between them.
-
 Configuration
 -------------
-To configure keywords for all or only specific languages, perform the command `texode --config`. The configuration is a JSON file, and code languages are specified within documents as on Github, like the following.
+To configure keywords for all or only specific languages and set the author name, perform the command `texode --config`. The configuration is a JSON file, and code languages are specified within documents as on Github, like the following.
 
 <div>```scheme<br>
 (define a 2)<br>
@@ -112,18 +101,10 @@ To configure keywords for all or only specific languages, perform the command `t
 
 Why LaTeX?
 ----------
-1. LaTeX rendered code can have explicit aligning between lines.
-
-	```latex
-	(lambda (x) x) &\implies \lambda x x
-	(lambda (f x) (f x)) &\implies \lambda f \lambda x (f) x
-	```
-
-2. LaTeX rendered code can include an array of special symbols easily, e.g., `\implies` or `\lambda`.
-3. LaTeX looks far more traditional and formal than syntax highlighting.
-4. There is no reason to limit code samples to the feature-set of a code editor or strict syntax of an interpreter. Code is meant as a means of communication to humans first, and communication with computer second.
+1. LaTeX automatically assigns section counts.
+2. LaTeX has a very traditional appearance.
+3. LaTeX automatically paginates and numbers pages, making your Markdown more appropriate for print.
 
 Roadmap
 -------
-- Full-fledged LaTeX document output.
 - A command that builds both clean markup and LaTeX code to their respective directories.

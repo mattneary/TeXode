@@ -76,7 +76,7 @@ end
 def literal_keywords(line, keywords)  
   apply_replaces line, (keywords.map { |keyword|
     [keyword, '\text{'+keyword+'}']
-  }).concat([[/\.\.\./, '\dots'], [/[a-zA-Z0-9><]+-\S+/, '\text{\0}'], [/#([A-Za-z0-9]+)/, DOCUMENT_MODE ? '\1' : '\text{\0}']])
+  }).concat([[/\.\.\./, '\dots'], [/[a-zA-Z0-9><]+-\S+/, '\text{\0}'], [/([a-zA-Z0-9><])_/, '\1\_'], [/#([A-Za-z0-9]+)/, DOCUMENT_MODE ? '\1' : '\text{\0}']])
 end
 
 def handle_headers(line, author)
@@ -107,9 +107,9 @@ def handle_body(line, author)
     line = handle_headers(line, author).gsub(/#[a-zA-Z0-9]+/) do |match|
       match[1..-1]
     end
-    line
+    line.gsub(/([a-zA-Z0-9><])_/, '\1\_')
   else
-    line
+    line.gsub(/([a-zA-Z0-9><])_/, '\1\_')
   end
 end
 
@@ -135,7 +135,7 @@ STDIN.read.split("\n").each do |line|
   if line.match(/^```/) and (not code)
     if line.match(/^```\S+/)
       langkeys = config[line.match(/^```(\S+)/)[1]]
-      keywords = keywords.concat((langkeys ? langkeys : langkeys))
+      keywords = keywords.concat((langkeys ? langkeys : []))
     end
     code = true
     lineno = 0
