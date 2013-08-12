@@ -1,9 +1,11 @@
 require 'rubygems'
 require 'json'
 
-DOCUMENT_MODE = ARGV[0]=="document"
+DOCUMENT_MODE = ARGV[0]=="article"
+CHAPTERS = ARGV[0]=="book"
+FULLDOC = DOCUMENT_MODE || CHAPTERS
 
-if DOCUMENT_MODE
+if ARGV[0]=="article"
   PRELUDE = <<-eos
 \\documentclass[11pt]{article}
 \\usepackage{amsmath}
@@ -12,6 +14,11 @@ if DOCUMENT_MODE
 % {{{ LaTeX document
 \\begin{document}
   eos
+  LITERAL_SPACE = '\;'
+  BLOCK_START = '\begin{align*}'
+  BLOCK_END = '\end{align*}'
+elsif ARGV[0]=="book"
+  PRELUDE = ''  
   LITERAL_SPACE = '\;'
   BLOCK_START = '\begin{align*}'
   BLOCK_END = '\end{align*}'
@@ -76,17 +83,20 @@ end
 def literal_keywords(line, keywords)  
   apply_replaces line, (keywords.map { |keyword|
     [keyword, '\text{'+keyword+'}']
-  }).concat([[/\.\.\./, '\dots'], [/[a-zA-Z0-9><]+-\S+/, '\text{\0}'], [/([a-zA-Z0-9><])_/, '\1\_'], [/#([A-Za-z0-9]+)/, DOCUMENT_MODE ? '\1' : '\text{\0}']])
+  }).concat([[/\.\.\./, '\dots'], [/[a-zA-Z0-9><]+-\S+/, '\text{\0}'], [/([a-zA-Z0-9><])_/, '\1\_'], [/#([A-Za-z0-9]+)/, FULLDOC ? '\1' : '\text{\0}']])
 end
 
 def handle_headers(line, author)
   case line
   when /^###/ then '\subsection{'+line[3..-1]+'}'
-  when /^##/  then '\subsection{'+line[2..-1]+'}'
+  when /^##/  then '\section{'+line[2..-1]+'}'
   when /^#/ 
-    title = line[1..-1]
-    moyr = Time.new.strftime "%B %Y"
-    titlepage = <<-eos
+    if CHAPTERS
+      '\chapter{'+line[1..-1]+'}'
+    else
+      title = line[1..-1]
+      moyr = Time.new.strftime "%B %Y"
+      titlepage = <<-eos
 % {{{ Title page
 \\begin{titlepage}
 \\title{#{title}}
@@ -96,14 +106,15 @@ def handle_headers(line, author)
 \\thispagestyle{empty}
 \\end{titlepage}
 % }}}
-    eos
-    titlepage
+      eos
+      titlepage
+    end
   else line
   end
 end
 
 def handle_body(line, author)
-  if DOCUMENT_MODE
+  if FULLDOC
     line = handle_headers(line, author).gsub(/#[a-zA-Z0-9]+/) do |match|
       match[1..-1]
     end
@@ -147,15 +158,15 @@ STDIN.read.split("\n").each do |line|
   elsif code
     puts (if lineno == 0 then '& ' else '\\\\& ' end) + literal_keywords(indentation(literal_spaces(line)), keywords)
     lineno += 1
-  elsif DOCUMENT_MODE and line.match(/^- /) and (not list)
+  elsif FULLDOC and line.match(/^- /) and (not list)
     puts '\begin{itemize}'+"\n"
     list = true
     puts handle_bullet(line, author)
-  elsif DOCUMENT_MODE and list and (not line.match(/^- /))
+  elsif FULLDOC and list and (not line.match(/^- /))
     list = false
     puts '\end{itemize}'+"\n"
     puts handle_body(line, author)
-  elsif DOCUMENT_MODE and list
+  elsif FULLDOC and list
     puts handle_bullet(line, author)
   else
     puts handle_body(line, author)

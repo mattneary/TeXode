@@ -62,11 +62,25 @@ then
     if [ $index -gt 0 ] && [ $arg != $build_dir ]
     then
       echo "Rendering the contents of \`$arg\` as a LaTeX doc to the folder \`$build_dir\`."
-      ruby $TEXODE_WAREHOUSE_DIR/filter.rb document < $arg > $TEXODE_WAREHOUSE_DIR/tmp
+      ruby $TEXODE_WAREHOUSE_DIR/filter.rb article < $arg > $TEXODE_WAREHOUSE_DIR/tmp
       cat $TEXODE_WAREHOUSE_DIR/tmp > $build_dir/$(basename $arg).tex
     fi
     ((index++))
-  done   
+  done
+elif [ $1 == "--book" ]  
+then
+  for build_dir; do true; done
+  index=0
+  for arg
+  do
+    if [ $index -gt 0 ] && [ $arg != $build_dir ]
+    then
+      echo "Rendering the contents of \`$arg\` as a LaTeX chapter to the folder \`$build_dir\`."
+      ruby $TEXODE_WAREHOUSE_DIR/filter.rb book < $arg > $TEXODE_WAREHOUSE_DIR/tmp
+      cat $TEXODE_WAREHOUSE_DIR/tmp > $build_dir/$(basename $arg).tex
+    fi
+    ((index++))
+  done     
 elif [ $1 == "-o" ]
 then
   echo "Rendering contents of \`$2\` to the file \`$3\`."

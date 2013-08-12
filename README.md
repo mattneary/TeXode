@@ -107,4 +107,6 @@ Why LaTeX?
 
 Roadmap
 -------
-- A command that builds both clean markup and LaTeX code to their respective directories.
+- A command for rendering clean Markdown as well.
+- Footnotes
+- Different document types
