@@ -1,6 +1,6 @@
 TeXode
 ======
-TeXode renders Markdown as LaTeX, either full documents or exclusively code-blocks, intended for use with MathJax. Rendering can be directed to update a Markdown file, output to another file, use command-line input and output, or build a series of documents to LaTeX.
+TeXode renders Markdown as LaTeX. Full documents and books can be rendered, or merely the code blocks, allowing you to forgo syntax highlighting in favor of MathJax-powered LaTeX blocks. Rendering can be directed to update a Markdown file, output to another file, use command-line input and output, or build a series of documents to LaTeX.
 
 Installation
 ------------
@@ -23,6 +23,9 @@ There are various modes of use of TeXode, including different ways of rendering 
 
 ###Document Rendering
 To render Markdown document(s) as LaTeX, use the flag `--document file1.md file2.md ... build/folder`. Files will be outputted with a `.tex` extension appended in the build folder. From there, the LaTeX may be rendered as a pdf.
+
+###Book Component Rendering
+To render Markdown document(s) as chapters of a greater LaTeX book document, use the flag `--book file1.md file2.md ... build/folder`.
 
 ###Build
 The build command is fulfills the most likely primary use-case. Using the flag `-b file.md file2.md ... build/folder/` will render all provided files to a build directory.
@@ -108,5 +111,6 @@ Why LaTeX?
 Roadmap
 -------
 - A command for rendering clean Markdown as well.
-- Footnotes
-- Different document types
+- Footnotes.
+- Index files for `--book`.
+- Better syntax for the various modes.
