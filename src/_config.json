@@ -3,7 +3,7 @@
     "name": "Matt Neary"
   },
   "languages": {
-    "scheme": ["lambda", "define", "defmacro"],
+    "scheme": ["lambda", "define", "defmacro", "let", "let*", "letrec"],
     "javascript": ["var", "for", "while", "switch", "if", "else", "function"]
   }
 }

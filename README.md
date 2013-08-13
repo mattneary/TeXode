@@ -1,6 +1,6 @@
 TeXode
 ======
-TeXode renders Markdown as LaTeX. Full documents and books can be rendered, or merely the code blocks, allowing you to forgo syntax highlighting in favor of MathJax-powered LaTeX blocks. Rendering can be directed to update a Markdown file, output to another file, use command-line input and output, or build a series of documents to LaTeX.
+TeXode renders Markdown as LaTeX. Full documents and books can be rendered, or merely the code blocks, allowing you to forgo syntax highlighting in favor of MathJax-powered LaTeX blocks.
 
 Installation
 ------------
