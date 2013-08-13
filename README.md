@@ -1,6 +1,8 @@
 TeXode
 ======
 TeXode renders Markdown as LaTeX. Full documents and books can be rendered, or merely the code blocks, allowing you to forgo syntax highlighting in favor of MathJax-powered LaTeX blocks.
+Once LaTeX is produced, you will need to render the file with a LaTeX installation. This can then be converted to bear pdfs, amongst other formats.
+Alternatively, if you built only the code blocks, you can simply embed MathJax in a page rendering your Markdown as HTML.
 
 Installation
 ------------
