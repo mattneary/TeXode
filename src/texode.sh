@@ -42,7 +42,7 @@ then
     mode="article"
   else
     mode="book"
-  end
+  fi
     
   for build_dir; do true; done
   index=0
