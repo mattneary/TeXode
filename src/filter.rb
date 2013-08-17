@@ -82,7 +82,7 @@ end
 
 def literal_keywords(line, keywords)  
   apply_replaces line, (keywords.map { |keyword|
-    [keyword, '\text{'+keyword+'}']
+    [Regexp.new('([^{a-zA-Z0-9\-_><\\\])('+keyword+')'), '\1\text{\2}']
   }).concat([
     [/\.\.\./, '\dots'], 
     [/[a-zA-Z0-9><]+-\S+/, '\text{\0}'], 
@@ -120,6 +120,7 @@ end
 
 def handle_body(line, author)
   if FULLDOC
+    # TODO: fix hash handling
     line = handle_headers(line, author).gsub(/#[a-zA-Z0-9]+/) do |match|
       match[1..-1]
     end
@@ -140,7 +141,7 @@ if File.exist?('config.json')
 else
   config = JSON.parse File.read(File.dirname(__FILE__)+'/_config.json')
 end
-keywords = config["*"] ? config["*"] : []
+keywords = config["languages"]["*"] ? config["languages"]["*"] : []
 _keywords = keywords
 author = config["author"]
 
@@ -150,7 +151,7 @@ lineno = 0
 STDIN.read.split("\n").each do |line|
   if line.match(/^```/) and (not code)
     if line.match(/^```\S+/)
-      langkeys = config[line.match(/^```(\S+)/)[1]]
+      langkeys = config["languages"][line.match(/^```(\S+)/)[1]]
       keywords = keywords.concat((langkeys ? langkeys : []))
     end
     code = true
