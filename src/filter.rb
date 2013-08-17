@@ -82,7 +82,7 @@ end
 
 def literal_keywords(line, keywords)  
   apply_replaces line, (keywords.map { |keyword|
-    [Regexp.new('([^{a-zA-Z0-9\-_><\\\])('+keyword+')'), '\1\text{\2}']
+    [Regexp.new('([^{a-zA-Z0-9\-_><\\\])('+keyword+')(\s)'), '\1\text{\2}\3']
   }).concat([
     [/\.\.\./, '\dots'], 
     [/[a-zA-Z0-9><]+-\S+/, '\text{\0}'], 
