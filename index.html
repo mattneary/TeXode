@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Texode by mattneary</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Texode</h1>
+        <h2>Markdown to LaTeX transpiler, for books and code blocks.</h2>
+        <a href="https://github.com/mattneary/TeXode" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h3>
+<a name="texode" class="anchor" href="#texode"><span class="octicon octicon-link"></span></a>TeXode</h3>
+
+<p>TeXode renders Markdown as LaTeX. Full documents and books can be rendered, or merely the code blocks, allowing you to forgo syntax highlighting in favor of MathJax-powered LaTeX blocks. Once LaTeX is produced, you will need to render the file with a LaTeX installation. This can then be converted to bear pdfs, amongst other formats. Alternatively, if you built only the code blocks, you can simply embed MathJax in a page rendering your Markdown as HTML.</p>
+
+<p>Installation is as easy as copying and pasting the following command into your terminal:</p>
+
+<div class="highlight"><pre><span class="nv">$ </span>git clone https://github.com/mattneary/TeXode.git; <span class="se">\</span>
+  <span class="nb">echo</span> <span class="s2">""</span>; <span class="nb">cd </span>TeXode/lib; <span class="se">\</span>
+  ./install.sh <span class="sb">`</span>git log --pretty<span class="o">=</span>format:<span class="s1">'%h'</span> -n 1<span class="sb">`</span>; <span class="nb">cd</span> ../..; <span class="se">\</span>
+  rm -rf TeXode/
+</pre></div>
+
+<p>This will clone the repo into your current directory, then run the install script, and remove any intermediary files created in the process.</p>
+
+<p>Future updates can be performed from within TeXode by the --update flag, and your version number checked by the -v flag.</p>
+
+<h2>
+<a name="why-latex" class="anchor" href="#why-latex"><span class="octicon octicon-link"></span></a>Why LaTeX?</h2>
+
+<ol>
+<li>LaTeX automatically assigns section counts.</li>
+<li>LaTeX has a very traditional appearance.</li>
+<li>LaTeX automatically paginates and numbers pages, making your documents more appropriate for print.</li>
+</ol><h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>The command line interface of TeXode is designed to be as simple as possible, using sensible default behaviors. The two primary commands allow for files to be built to a directory, either rendering code for MathJax driven LaTeX or converting the full document to LaTeX. These commands work great within a <em>Makefile</em>.</p>
+
+<h3>
+<a name="building-full-documents" class="anchor" href="#building-full-documents"><span class="octicon octicon-link"></span></a>Building Full Documents</h3>
+
+<p>To build full documents to LaTeX, pass the -b [book|document] *.md build/folder.</p>
+
+<div class="highlight"><pre><span class="nv">$ </span>texode -b book intro.md definitions.md build/folder
+</pre></div>
+
+<h3>
+<a name="building-only-code" class="anchor" href="#building-only-code"><span class="octicon octicon-link"></span></a>Building Only Code</h3>
+
+<p>To build just the code of documents to LaTeX, pass the -c *.md build/folder.</p>
+
+<div class="highlight"><pre><span class="nv">$ </span>texode -c intro.md definitions.md build/folder
+</pre></div>
+
+<h2>
+<a name="author" class="anchor" href="#author"><span class="octicon octicon-link"></span></a>Author</h2>
+
+<p>TeXode is a project by <a href="http://github.com/mattneary">Matt Neary</a> designed for his upcoming book, <em>Tarpits &amp; Abstraction</em>.</p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/mattneary/TeXode/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/mattneary/TeXode/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/mattneary/TeXode"></a> is maintained by <a href="https://github.com/mattneary">mattneary</a>.</p>
+
+          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
