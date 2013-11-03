@@ -86,7 +86,7 @@ def literal_keywords(line, keywords)
   }).concat([
     [/\.\.\./, '\dots'], 
     [/[a-zA-Z0-9><]+-\S+/, '\text{\0}'], 
-    [/([^0-9\\])_/, '\1\_'], 
+    [/([^\\])_ /, '\1\_ '], 
     [/#([A-Za-z0-9]+)/, 
       FULLDOC ? '\#\1' : '\text{\0}']])
 end
@@ -124,9 +124,9 @@ def handle_body(line, author)
     line = handle_headers(line, author).gsub(/#[a-zA-Z0-9]+/) do |match|
       match[1..-1]
     end
-    line.gsub(/([a-zA-Z0-9><])_/, '\1\_')
+    line.gsub(/_([^0-9{}])/, '\_\1')
   else
-    line.gsub(/([a-zA-Z0-9><])_/, '\1\_')
+    line.gsub(/_([^0-9{}])/, '\_\1')
   end
 end
 
@@ -181,3 +181,4 @@ end
 if DOCUMENT_MODE
   puts '\end{document}'
 end
+
