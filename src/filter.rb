@@ -15,13 +15,13 @@ if ARGV[0]=="article"
 \\begin{document}
   eos
   LITERAL_SPACE = '\;'
-  BLOCK_START = '\begin{align*}'
-  BLOCK_END = '\end{align*}'
+  BLOCK_START = "\\begin{figure}[htp]\n\\caption{}\\label{LABEL_NAME}\n\\begin{align*}"
+  BLOCK_END = "\\end{align*}\n\\end{figure}"
 elsif ARGV[0]=="book"
   PRELUDE = ''  
   LITERAL_SPACE = '\;'
-  BLOCK_START = '\begin{align*}'
-  BLOCK_END = '\end{align*}'
+  BLOCK_START = "\\begin{figure}[htp]\n\\caption{}\\label{LABEL_NAME}\n\\begin{align*}"
+  BLOCK_END = "\\end{align*}\n\\end{figure}"
 else
   PRELUDE = ''
   LITERAL_SPACE = '\space'
@@ -124,7 +124,9 @@ def handle_body(line, author)
     line = handle_headers(line, author).gsub(/#[a-zA-Z0-9]+/) do |match|
       match[1..-1]
     end
-    line.gsub(/_([^0-9{}])/, '\_\1').gsub(/`([^`]+)`/, '$\1$').gsub(/\*([^*]+)\*/, '\emph{\1}')
+    line.gsub(/_([^0-9{}])/, '\_\1').gsub(/`([^`]+)`/) do |match|
+      "$"+literal_keywords(match[1..-2], [])+"$"
+    end.gsub(/\*([^*]+)\*/, '\emph{\1}')
   else
     line.gsub(/_([^0-9{}])/, '\_\1').gsub(/`([^`]+)`/, '$\1$').gsub(/\*([^*]+)\*/, '\emph{\1}')
   end
@@ -150,13 +152,15 @@ list = false
 lineno = 0
 STDIN.read.split("\n").each do |line|
   if line.match(/^```/) and (not code)
+    name = ""
     if line.match(/^```\S+/)
+      name = line.match(/^```(\S+)/)[1]
       langkeys = config["languages"][line.match(/^```(\S+)/)[1]]
       keywords = keywords.concat((langkeys ? langkeys : []))
     end
     code = true
     lineno = 0
-    puts BLOCK_START
+    puts BLOCK_START.gsub(/LABEL_NAME/, name)
   elsif line.match(/^```/) and code
     code = false
     keywords = _keywords
