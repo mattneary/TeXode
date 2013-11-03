@@ -74,7 +74,7 @@ end
 
 def apply_replaces(base, replaces)
   if replaces.length == 0
-	base
+    base
   else
     apply_replaces(base.gsub(replaces.first.first, replaces.first.last), replaces[1..-1])  
   end
@@ -124,9 +124,9 @@ def handle_body(line, author)
     line = handle_headers(line, author).gsub(/#[a-zA-Z0-9]+/) do |match|
       match[1..-1]
     end
-    line.gsub(/_([^0-9{}])/, '\_\1')
+    line.gsub(/_([^0-9{}])/, '\_\1').gsub(/`([^`]+)`/, '$\1$').gsub(/\*([^*]+)\*/, '\emph{\1}')
   else
-    line.gsub(/_([^0-9{}])/, '\_\1')
+    line.gsub(/_([^0-9{}])/, '\_\1').gsub(/`([^`]+)`/, '$\1$').gsub(/\*([^*]+)\*/, '\emph{\1}')
   end
 end
 
