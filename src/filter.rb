@@ -15,12 +15,12 @@ if ARGV[0]=="article"
 \\begin{document}
   eos
   LITERAL_SPACE = '\;'
-  BLOCK_START = "\\begin{figure}[htp]\n\\caption{}\\label{LABEL_NAME}\n\\begin{align*}"
+  BLOCK_START = "\\begin{figure}[htp]\n\\footnotesize\n\\caption{}\\label{LABEL_NAME}\n\\begin{align*}"
   BLOCK_END = "\\end{align*}\n\\end{figure}"
 elsif ARGV[0]=="book"
   PRELUDE = ''  
   LITERAL_SPACE = '\;'
-  BLOCK_START = "\\begin{figure}[htp]\n\\caption{}\\label{LABEL_NAME}\n\\begin{align*}"
+  BLOCK_START = "\\begin{figure}[htp]\n\\footnotesize\n\\caption{}\\label{LABEL_NAME}\n\\begin{align*}"
   BLOCK_END = "\\end{align*}\n\\end{figure}"
 else
   PRELUDE = ''
